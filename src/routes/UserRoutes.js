@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const UserService = require("./UserService");
+const UserService = require("../Services/UserService");
 const { check, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 

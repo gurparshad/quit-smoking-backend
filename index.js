@@ -1,6 +1,19 @@
 const app = require("./src/app");
-const sequelize = require("./src/config/database");
+const http = require("http");
+const { sequelize } = require("./models");
+const socket = require("socket.io");
+const server = http.createServer(app);
+const io = socket(server);
 
-sequelize.sync();
+io.on("connection", (socket) => {
+  socket.emit("your id", socket.id);
+  socket.on("send message", (body) => {
+    io.emit("message", body);
+  });
+});
 
-app.listen(3001, () => console.log("app is running"));
+server.listen(3002, async () => {
+  console.log("app is running");
+  await sequelize.authenticate();
+  console.log("database connected");
+});
