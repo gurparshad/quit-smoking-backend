@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require("body-parser");
 
 const UserRoutes = require("./routes/UserRoutes");
+const PostRoutes = require("./routes/PostRoutes");
 const cors = require("cors");
 require("dotenv").config();
 
@@ -11,6 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(UserRoutes);
+app.use(PostRoutes);
 
 async function main() {}
 main();

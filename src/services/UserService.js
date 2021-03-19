@@ -8,7 +8,7 @@ const save = async (body) => {
 };
 
 const findByEmail = async (email) => {
-  return await User.findOne({ where: { email: email } });
+  return await User.scope("withPassword").findOne({ where: { email: email } });
 };
 
 module.exports = { save, findByEmail };

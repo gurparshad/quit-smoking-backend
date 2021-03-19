@@ -2,8 +2,8 @@
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    static associate({ Property }) {
-      this.hasMany(Property, { foreignKey: "userId" });
+    static associate({ Post }) {
+      this.hasMany(Post, { foreignKey: "userId" });
     }
   }
   User.init(
@@ -31,6 +31,14 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
+      defaultScope: {
+        attributes: { exclude: ["password"] },
+      },
+      scopes: {
+        withPassword: {
+          attributes: {},
+        },
+      },
       sequelize,
       tableName: "users",
       modelName: "User",
