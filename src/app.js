@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 
 const UserRoutes = require("./routes/UserRoutes");
 const PostRoutes = require("./routes/PostRoutes");
+const UserDetailsRoutes = require("./routes/UserDetailsRoutes");
 const cors = require("cors");
 require("dotenv").config();
 
@@ -13,6 +14,7 @@ app.use(bodyParser.json());
 
 app.use(UserRoutes);
 app.use(PostRoutes);
+app.use(UserDetailsRoutes);
 
 async function main() {}
 main();

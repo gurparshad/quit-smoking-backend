@@ -19,7 +19,7 @@ router.get("/api/1.0/posts/getAll", async (req, res) => {
 router.get("/api/1.0/posts/get/:userId", async (req, res) => {
   const { userId } = req.params;
   try {
-    const posts = await Post.findOne({ where: { userId: userId } });
+    const posts = await Post.findAll({ where: { userId: userId } });
     return res.json(posts);
   } catch (err) {
     console.log(err);
@@ -47,6 +47,18 @@ router.delete("/api/1.0/posts/delete/:postId", async (req, res) => {
   try {
     await Post.destroy({ where: { id: postId } });
     return res.json("post deleted");
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json(err);
+  }
+});
+
+// get a single post
+router.get("/api/1.0/posts/getOne/:postId", async (req, res) => {
+  const { postId } = req.params;
+  try {
+    const posts = await Post.findOne({ where: { id: postId } });
+    return res.json(posts);
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
