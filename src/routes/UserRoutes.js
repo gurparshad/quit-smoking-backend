@@ -3,6 +3,7 @@ const router = express.Router();
 const UserService = require("../Services/UserService");
 const { check, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
+const { User } = require("../../models");
 
 // user registration route
 router.post(
@@ -123,5 +124,17 @@ router.post(
     });
   },
 );
+
+// delete user route
+router.delete("/api/1.0/users/delete/:userId", async (req, res) => {
+  const { userId } = req.params;
+  try {
+    await User.destroy({ where: { id: userId } });
+    return res.json("User deleted");
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json(err);
+  }
+});
 
 module.exports = router;

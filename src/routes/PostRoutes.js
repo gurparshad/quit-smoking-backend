@@ -65,4 +65,20 @@ router.get("/api/1.0/posts/getOne/:postId", async (req, res) => {
   }
 });
 
+// update a post
+router.patch("/api/1.0/posts/update/:postId", async (req, res) => {
+  const { postId } = req.params;
+  const { title, description } = req.body;
+  try {
+    const result = await Post.update(
+      { title, description },
+      { where: { id: postId } },
+    );
+    return res.json(result);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json(err);
+  }
+});
+
 module.exports = router;
